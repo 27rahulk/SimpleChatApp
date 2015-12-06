@@ -1,0 +1,2 @@
+var users = [];
+var usersById = {};

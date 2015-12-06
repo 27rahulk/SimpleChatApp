@@ -1,0 +1,14 @@
+doctype html
+html(ng-app='chatApp')
+ head
+  meta(name="viewport" content="width=device-width, initial-scale=1")
+  meta(charset="utf-8")
+  meta(name="description" content="Chat, share and learn")
+  meta(name="keywords" content="chat, talk, anonymous, share, news")
+  link(rel='stylesheet', href='/stylesheets/style.css')
+  link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css')
+  script(src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js')
+  body
+   block content
+   script(src='/socket.io/socket.io.js')
+   script(src='/js/app.js')

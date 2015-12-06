@@ -1,0 +1,57 @@
+extends layout
+
+block content
+ div.container
+  div.col-sm-12
+   div.row
+    div#header
+     p header here
+   div.row
+    div#content
+     p content here
+     div#activity-block.row
+      p all activity here
+      div.row#login(data-ng-if="!logged" data-ng-controller='chatCtrl')
+       div.col-sm-1
+       div.col-sm-10
+        p I'm a secret agent
+         div#anon_log
+          p username
+          p password
+          div.col-sm-1
+          div#register.col-sm-11
+           p username
+           p email
+           p password
+           p confirm password
+           div.col-sm-1
+           div#add_reg_info.col-sm-11
+            p gender
+            p firstname lastname
+            p description
+            p interest
+        p I'm regular in here
+         div#user_log
+          p username
+          p password
+        p My life is an open book
+         div#open_log
+          p openId login
+      div.col-sm-12#chatBox(data-ng-if="!logged")
+       div.col-sm-2
+       div.col-sm-8
+        p chat box in here
+        div.col-sm-12
+         span chat broadcast message
+        div.row
+         div.col-sm-12
+          span chat activity here 
+        div.row
+         div.col-sm-10
+          span user input to room here
+         div.col-sm-2
+          span send button here   
+       div.col-sm-2
+        p rooms and activity got in here
+     div#history-block.row
+      p all history here
