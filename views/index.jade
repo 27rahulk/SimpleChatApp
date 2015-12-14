@@ -6,41 +6,46 @@ block content
    div.row
     div#header
      p header here
-   div.row
+   div.row(data-ng-controller='chatCtrl')
     div#content
      p content here
      div#activity-block.row
       p all activity here
-      div.row#login(data-ng-if="!logged" data-ng-controller='chatCtrl')
+      div.row.form-group#login(data-ng-show="!logged", data-ng-hide="logged")
        div.col-sm-1
        div.col-sm-10
         p I'm a secret agent
          div#anon_log
-          p username
-          p password
-          div.col-sm-1
-          div#register.col-sm-11
-           p username
-           p email
-           p password
-           p confirm password
+          input.form-control(type="text", placeholder="choose a nickname", data-ng-model="me.nick")
+          a.btn.btn-primary(data-ng-click="chatLogin(0)") Login
+          span or you can
+          a register
+          div#register.col-sm-11(data-ng-if="register")
+           input.form-control(type="text", placeholder="Provide your number")
+           input.form-control(type="text", placeholder="Provide your email")
+           input.form-control(type="password", placeholder="Provide password")
+           input.form-control(type="password", placeholder="Confirm password")
            div.col-sm-1
-           div#add_reg_info.col-sm-11
+           div#add_reg_info.col-sm-11(data-ng-if="registerInfo")
             p gender
             p firstname lastname
-            p description
-            p interest
+            textarea.form-control description
+            textarea.form-control interest
         p I'm regular in here
          div#user_log
-          p username
-          p password
+          input.form-control(type="text", placeholder="Provide email or number")
+          input.form-control(type="password", placeholder="Provide password")
+          a.btn.btn-primary(data-ng-click="chatLogin(1)") Login
         p My life is an open book
          div#open_log
           p openId login
-      div.col-sm-12#chatBox(data-ng-if="!logged")
+      div.form-group.col-sm-12#chatBox(data-ng-show="logged")
        div.col-sm-2
        div.col-sm-8
-        p chat box in here
+        div.col-sm-12.well#chatMessages(scroll="room.messages")
+         div.row.perMessage(data-ng-repeat="msg in room.messages")
+          span.from.text-primary {{msg.sender}} : 
+          span.message.text-success {{msg.message}}
         div.col-sm-12
          span chat broadcast message
         div.row
@@ -48,10 +53,13 @@ block content
           span chat activity here 
         div.row
          div.col-sm-10
-          span user input to room here
+          input.form-control(type="text", placeholder="message to room", data-ng-model="myMessageToRoom")
          div.col-sm-2
-          span send button here   
+          a.btn.btn-primary(data-ng-click="sendMessageToRoom()") Send 
        div.col-sm-2
-        p rooms and activity got in here
+        div.row#room_users
+         ul.list-group
+          li.list-group-item(data-ng-repeat="usr in room.users")
+           span {{usr.nick}}
      div#history-block.row
       p all history here

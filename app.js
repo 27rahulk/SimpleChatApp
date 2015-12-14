@@ -6,6 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
+  , chat = require('./routes/chat')
   , http = require('http')
   , path = require('path')
   , logger = require('./logs/log');
@@ -46,12 +47,19 @@ io.on('connection', function(socket){
 	console.log('a user connected');
 	socket.on('message',function(msg){
 		console.log(msg);
+		chat.sendMessageToRoom(msg);
 //		socket.emit('message',msg);
 	});
 	socket.on('login',function(user){
 		console.log(user);
-		users.push(user);
-		socket.broadcast.emit('notification',user.nick+' has joined and total user now is '+users.length);
+		chat.connectUser(socket,user);
+//		users.push(user);
+//		socket.broadcast.emit('notification',user.nick+' has joined and total user now is '+users.length);
+	});
+	socket.on('disconnect',function(){
+		console.log('disconnecting user');
+		chat.disconnectUser(socket);
+//		socket.emit('message',msg);
 	});
 	
 });
